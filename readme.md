@@ -1,5 +1,7 @@
 # Baremetel riscv program example
 
+[![asciicast](https://asciinema.org/a/551075.svg)](https://asciinema.org/a/551075)
+
 ## prepare
 
 ### archlinux / manjaro
