@@ -2,7 +2,7 @@
 ASFLAGS := -g
 CFLAGS := -g -mcmodel=medany -nostartfiles -fno-plt -fno-pic
 LDFLAGS := -L/usr/riscv64-unknown-elf/lib/ -lc
-QFLAGS := -nographic -display none -serial mon:stdio
+QFLAGS := -nographic -display none -serial mon:stdio -smp 2
 
 kernel.elf: kernel.ld boot.o main.o
 	riscv64-unknown-elf-ld $(LDFLAGS) -o $@ -T $^

@@ -3,6 +3,13 @@
 
 # _start is the entry point of the program
 _start:
+	# Only proceed on the boot core. Park it otherwise.
+	csrr t0, mhartid
+	beqz t0, _boot_first_core
+	# If execution reaches here, it not the boot core.
+	j	finish
+
+_boot_first_core:
 # uart of risc-v virt machine is 0x1000_0000,
 # lui: storage 0x10000 << 12 to t0
 	lui t0, 0x10000
