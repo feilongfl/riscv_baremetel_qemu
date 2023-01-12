@@ -1,6 +1,11 @@
 
 	.global _start
 
+.macro	PUT_CHAR char
+	addi t1, zero, \char
+	sw t1, 0(t0)
+.endm
+
 # _start is the entry point of the program
 _start:
 	# Only proceed on the boot core. Park it otherwise.
@@ -15,23 +20,12 @@ _boot_first_core:
 	lui t0, 0x10000
 
 # load ascii to t1 reg, then storage to uart tx register
-	addi t1, zero, 'H'
-	sw t1, 0(t0)
-
-	addi t1, zero, 'e'
-	sw t1, 0(t0)
-
-	addi t1, zero, 'l
-	sw t1, 0(t0)
-
-	addi t1, zero, 'l
-	sw t1, 0(t0)
-
-	addi t1, zero, 'o
-	sw t1, 0(t0)
-
-	addi t1, zero, '\n'
-	sw t1, 0(t0)
+	PUT_CHAR 'H'
+	PUT_CHAR 'e'
+	PUT_CHAR 'l'
+	PUT_CHAR 'l'
+	PUT_CHAR 'o'
+	PUT_CHAR '\n'
 
 # prepare c runtime
 _cstart:
