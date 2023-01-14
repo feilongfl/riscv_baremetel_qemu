@@ -2,7 +2,7 @@
 ASFLAGS := -g
 CFLAGS := -g -mcmodel=medany -nostartfiles -fno-plt -fno-pic
 LDFLAGS := -L/usr/riscv64-unknown-elf/lib/ -lc
-QFLAGS := -nographic -display none -serial mon:stdio -smp 2
+QFLAGS := -nographic -display none -serial mon:stdio -smp 1 -bios none
 
 kernel.elf: kernel.ld boot.o main.o
 	riscv64-unknown-elf-ld $(LDFLAGS) -o $@ -T $^
@@ -17,16 +17,19 @@ asm: kernel.elf
 	riscv64-unknown-elf-objdump -d $<
 
 qemu: kernel.elf
-	qemu-system-riscv64 -machine virt $(QFLAGS) -bios $<
+	qemu-system-riscv64 -machine virt $(QFLAGS) -kernel $<
+
+qemuasm: kernel.elf
+	qemu-system-riscv64 -machine virt $(QFLAGS) -kernel $< -d in_asm
 
 qemudebug: kernel.elf
-	qemu-system-riscv64 -machine virt $(QFLAGS) -bios $< -s -S
+	qemu-system-riscv64 -machine virt $(QFLAGS) -kernel $< -s -S
 
 gdb: kernel.elf
 	gdb-multiarch -iex "set auto-load safe-path /" $<
 
 qemu.dts: kernel.elf
-	qemu-system-riscv64 -machine virt,dumpdtb=qemu.dtb $(QFLAGS) -bios $<
+	qemu-system-riscv64 -machine virt,dumpdtb=qemu.dtb $(QFLAGS) -kernel $<
 	dtc -o qemu.dts -O dts -I dtb qemu.dtb
 
 clean:
