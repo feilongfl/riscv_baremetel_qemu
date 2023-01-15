@@ -36,12 +36,55 @@ int puts(const char *str) {
   return 0;
 }
 
+// initial GPIO: PD18 as output
+// 0x02000000: GPIO controller base address
+#define GPIO_BASE 0x02000000
+#define PORTD_OFFSET 0x0090
+#define GPIO_PIN 18
+
+struct sunxi_gpio {
+  unsigned int cfg[4];
+  unsigned int dat;
+  unsigned int drv[2];
+  unsigned int pull[2];
+};
+
+struct sunxi_gpio *PortD = (struct sunxi_gpio *)(GPIO_BASE + PORTD_OFFSET);
+
+void led_blink() {
+  int i = 0;
+  int j = 0;
+  int k = 0;
+  int led = 0;
+
+  // PD18: output
+  PortD->cfg[(GPIO_PIN) / 8] &= (~0x0F << (GPIO_PIN % 8) * 4);
+  PortD->cfg[(GPIO_PIN) / 8] |= (0x01 << (GPIO_PIN % 8) * 4);
+  PortD->dat |= (0x01 << 18);
+
+  while (1) {
+    printf(".");
+    for (i = 0; i < 100000000; i++) {
+    }
+
+    // toggle led
+    if (led)
+      PortD->dat |= (0x01 << GPIO_PIN);
+    else
+      PortD->dat &= ~(0x01 << GPIO_PIN);
+
+    led = ~led;
+  }
+}
+
 // main function, called by _start() in boot.s
 void main(unsigned long a0) {
   printf("FeiLong\n\n");
 
   printf("\n\n");
   printf("Tips: Press reset button to reboot.\n\n");
+
+  led_blink();
 
   return;
 }
