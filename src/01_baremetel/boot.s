@@ -41,4 +41,5 @@ _cstart:
 
 # loop forever
 finish:
+	wfi
 	j finish
