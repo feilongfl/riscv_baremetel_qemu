@@ -51,5 +51,6 @@ opensbi.bin:
 
 clean:
 	rm *.o kernel.elf *.dts *.dtb *.log *.fixed.s *.bin *.img
+	git submodule foreach git clean -xfd
 
 .PHONY: clean asm bootpack kernel
