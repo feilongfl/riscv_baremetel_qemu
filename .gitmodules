@@ -1,3 +1,9 @@
 [submodule "devices/common/opensbi"]
 	path = devices/common/opensbi
 	url = https://github.com/riscv-software-src/opensbi.git
+[submodule "src/devices/d1/sun20i_d1_spl"]
+	path = src/devices/d1/sun20i_d1_spl
+	url = https://github.com/smaeul/sun20i_d1_spl.git
+[submodule "devices/d1/sun20i_d1_spl"]
+	path = devices/d1/sun20i_d1_spl
+	url = https://github.com/smaeul/sun20i_d1_spl.git
