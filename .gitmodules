@@ -7,3 +7,6 @@
 [submodule "devices/d1/sun20i_d1_spl"]
 	path = devices/d1/sun20i_d1_spl
 	url = https://github.com/smaeul/sun20i_d1_spl.git
+[submodule "devices/common/u-boot"]
+	path = devices/common/u-boot
+	url = https://github.com/u-boot/u-boot.git
