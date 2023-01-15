@@ -41,7 +41,7 @@ void main(unsigned long a0) {
   printf("FeiLong\n\n");
 
   printf("\n\n");
-  printf("Tips: Press [Ctrl+A]X to quit qemu.\n\n");
+  printf("Tips: Press reset button to reboot.\n\n");
 
   return;
 }
