@@ -1,0 +1,3 @@
+[submodule "devices/devices/common/opensbi"]
+	path = devices/devices/common/opensbi
+	url = https://github.com/riscv-software-src/opensbi.git

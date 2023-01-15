@@ -1,0 +1,7 @@
+*.o
+*.log
+*.fixed.s
+*.dtb
+*.dts
+*.elf
+*.bin
