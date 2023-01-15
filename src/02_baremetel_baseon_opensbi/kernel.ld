@@ -6,7 +6,7 @@ PROVIDE( _stack_size = __stack_size );
 
 MEMORY
 {
-  ram   (wxa!ri) : ORIGIN = 0x80000000, LENGTH = 128M
+  ram   (wxa!ri) : ORIGIN = 0x80200000, LENGTH = 1M
 }
 
 PHDRS

@@ -1,8 +1,8 @@
 
 ASFLAGS := -g
-CFLAGS := -g -mcmodel=medany -nostartfiles -fno-plt -fno-pic
+CFLAGS := -g -mcmodel=medany -nostartfiles -fno-plt -fno-pic -I../../devices/common/opensbi/include
 LDFLAGS := -L/usr/riscv64-unknown-elf/lib/ -lc
-QFLAGS := -nographic -display none -serial mon:stdio -smp 1 -bios none
+QFLAGS := -nographic -display none -serial mon:stdio -smp 4
 
 kernel.elf: kernel.ld boot.o main.o
 	riscv64-unknown-elf-ld $(LDFLAGS) -o $@ -T $^

@@ -8,11 +8,16 @@
 
 # _start is the entry point of the program
 _start:
-	# Only proceed on the boot core. Park it otherwise.
-	csrr t0, mhartid
-	beqz t0, _boot_first_core
-	# If execution reaches here, it not the boot core.
-	j	finish
+	# OpenSBI will pick one hart to boot the kernel
+	# and set the other harts to wait for IPIs.
+	# We need to wait for the IPIs to arrive.
+	# Otherwise, the hart will execute the following
+	# instructions and cause a machine check exception.
+	# We can use the wfi instruction to wait for the IPIs.
+	lla	a3, _hart_lottery
+	li	a2, 1
+	amoadd.w a3, a2, (a3)
+	bnez	a3, finish
 
 _boot_first_core:
 # uart of risc-v virt machine is 0x1000_0000,
@@ -41,4 +46,8 @@ _cstart:
 
 # loop forever
 finish:
+	wfi
 	j finish
+
+_hart_lottery:
+	.dword	0
