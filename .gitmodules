@@ -14,3 +14,6 @@
 	path = devices/d1/u-boot
 	url = https://github.com/smaeul/u-boot.git
 	branch = d1-wip
+[submodule "devices/common/esh"]
+	path = devices/common/esh
+	url = https://github.com/feilongfl/esh.git
