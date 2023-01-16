@@ -24,20 +24,11 @@ u-boot.dtb:
 	pushd ../../devices/d1/u-boot; make CROSS_COMPILE=riscv64-linux-gnu- nezha_defconfig; make CROSS_COMPILE=riscv64-linux-gnu- -j`nproc`; popd
 	cp ../../devices/d1/u-boot/u-boot.dtb ./u-boot.dtb
 
-kernel.bin: kernel.elf
-	riscv64-unknown-elf-objcopy -O binary kernel.elf $@
+../../devices/common/esh/examples/physical/riscv-opensbi/shell.bin:
+	pushd ../../devices/common/esh/examples/physical/riscv-opensbi; make; popd
 
-kernel.elf: kernel.ld boot.o main.o
-	riscv64-unknown-elf-ld $(LDFLAGS) -o $@ -T $^
-
-%.o: %.s
-	riscv64-unknown-elf-as $(ASFLAGS) -o $@ $<
-
-%.o: %.c
-	riscv64-unknown-elf-gcc $(CFLAGS) -c -o $@ $<
-
-asm: kernel.elf
-	riscv64-unknown-elf-objdump -d $<
+kernel.bin: ../../devices/common/esh/examples/physical/riscv-opensbi/shell.bin
+	cp $< $@
 
 bootpack: spl.bin opensbi.bin
 
