@@ -9,3 +9,4 @@
 *.pem
 *.toc
 payload.script
+*.fix.ld
