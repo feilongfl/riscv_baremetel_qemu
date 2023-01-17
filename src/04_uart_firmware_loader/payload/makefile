@@ -28,7 +28,8 @@ $(PRJNAME).elf: $(PRJNAME).fix.ld boot.o
 
 payload: $(PRJNAME).script
 	echo -e 'led 0 1\n' > $(UART)
-	cat $< | xargs -I % sh -c '{ echo w32 %; echo w32 % > $(UART); sleep 0.1; echo r32 % > $(UART); sleep 0.1; }'
+	cat $< | xargs -I % sh -c '{ echo w32 %; echo w32 % > $(UART); sleep 0.001; }'
+# cat $< | xargs -I % sh -c '{ echo w32 %; echo w32 % > $(UART); sleep 0.001; echo r32 % > $(UART); sleep 0.001; }'
 	echo -e 'led 0 0\n' > $(UART)
 	echo -e 'boot $(RAM_ADDR)\n' > $(UART)
 
