@@ -40,8 +40,11 @@ opensbi.bin:
 	pushd ../../devices/common/opensbi; make CROSS_COMPILE=riscv64-linux-gnu- PLATFORM=generic FW_PIC=y; popd
 	cp ../../devices/common/opensbi/build/platform/generic/firmware/fw_dynamic.bin ./opensbi.bin
 
+payload:
+	make -C payload payload
+
 clean:
 	rm *.o kernel.elf *.dts *.dtb *.log *.fixed.s *.bin *.img
 	git submodule foreach git clean -xfd
 
-.PHONY: clean asm bootpack kernel
+.PHONY: clean asm bootpack kernel payload
