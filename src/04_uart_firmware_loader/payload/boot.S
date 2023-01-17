@@ -12,19 +12,22 @@
 
 # _start is the entry point of the program
 _start:
-	# PUT_CHAR 'H'
-	# PUT_CHAR 'e'
-	# PUT_CHAR 'l'
-	# PUT_CHAR 'l'
-	# PUT_CHAR 'o'
-	# PUT_CHAR '\n'
-	# PUT_CHAR 'W'
-	# PUT_CHAR 'o'
-	# PUT_CHAR 'r'
-	# PUT_CHAR 'l'
-	# PUT_CHAR 'd'
-	# PUT_CHAR '!'
-	# PUT_CHAR '\n'
+
+	PUT_CHAR 'H'
+	PUT_CHAR 'e'
+	PUT_CHAR 'l'
+	PUT_CHAR 'l'
+	PUT_CHAR 'o'
+	PUT_CHAR '\n'
+	PUT_CHAR 'W'
+	PUT_CHAR 'o'
+	PUT_CHAR 'r'
+	PUT_CHAR 'l'
+	PUT_CHAR 'd'
+	PUT_CHAR '!'
+	PUT_CHAR '\n'
+
+	ret
 
 # loop forever
 finish:
