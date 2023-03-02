@@ -27,7 +27,17 @@ _start:
 	PUT_CHAR '!'
 	PUT_CHAR '\n'
 
-	ret
+# prepare c runtime
+_cstart:
+
+# stoarge stack to sp register
+	la sp, _estack
+
+# storage finish to ra register
+# jump to finish when main function return
+	la ra, finish
+# jump to main
+	j main
 
 # loop forever
 finish:

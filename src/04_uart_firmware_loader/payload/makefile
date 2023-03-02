@@ -1,7 +1,10 @@
 
-ASFLAGS := -g
-CFLAGS := -g -mcmodel=medany -nostartfiles -fno-plt -fno-pic
-LDFLAGS := -L/usr/riscv64-unknown-elf/lib/ -lc
+PREFIX := riscv64-linux-gnu-
+# PREFIX := riscv64-unknown-elf-
+
+ASFLAGS := -g -fpic
+CFLAGS := -g -mcmodel=medany -nostartfiles -fno-plt -fpic
+LDFLAGS := -L/usr/riscv64-unknown-elf/lib/ -lc -fpic -shared
 QFLAGS := -nographic -display none -serial mon:stdio -smp 1 -bios none
 
 PRJNAME = payload
@@ -17,14 +20,14 @@ $(PRJNAME).bin: $(PRJNAME).elf
 $(PRJNAME).fix.ld: $(PRJNAME).ld
 	sed -r 's/@RAM_ADDR/$(RAM_ADDR)/' $< > $@
 
-$(PRJNAME).elf: $(PRJNAME).fix.ld boot.o
-	riscv64-unknown-elf-ld $(LDFLAGS) -o $@ -T $^
+$(PRJNAME).elf: $(PRJNAME).fix.ld boot.o main.o
+	$(PREFIX)ld $(LDFLAGS) -o $@ -T $^
 
 %.o: %.S
-	riscv64-unknown-elf-as $(ASFLAGS) -o $@ $<
+	$(PREFIX)as $(ASFLAGS) -o $@ $<
 
 %.o: %.c
-	riscv64-unknown-elf-gcc $(CFLAGS) -c -o $@ $<
+	$(PREFIX)gcc $(CFLAGS) -c -o $@ $<
 
 payload: $(PRJNAME).script
 	echo -e 'led 0 1\n' > $(UART)
